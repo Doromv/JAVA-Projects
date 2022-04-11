@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doromv.store.mapper.AddressMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="aid">
+        insert into store.t_address (uid, name, province_name, province_code, city_name, city_code, area_name, area_code, zip, address, phone, tel, tag, is_default, created_user, created_time, modified_user, modified_time)
+        values ( #{uid}, #{name}, #{provinceName}, #{provinceCode}, #{cityName}, #{cityCode}, #{areaName},#{areaCode}, #{zip}, #{address}, #{phone}, #{tel}, #{tag}, #{isDefault}, #{createdUser},#{createdTime}, #{modifiedUser}, #{modifiedTime});
+    </insert>
+    <select id="countByUid" resultType="int">
+        select count(*)
+        from store.t_address
+        where uid=#{uid};
+    </select>
+    <select id="findByUid" resultType="com.doromv.store.entity.Address">
+        select *
+        from store.t_address
+        where uid=#{uid}
+        order by is_default desc,
+                 created_time desc;
+    </select>
+    <select id="findByAid" resultType="com.doromv.store.entity.Address">
+        select *
+        from store.t_address
+        where aid=#{aid};
+    </select>
+    <update id="updateNonDefault">
+        update store.t_address
+        set is_default =0
+        where uid=#{uid};
+    </update>
+    <update id="updateDefaultByAid">
+        update store.t_address
+        set is_default =1,modified_time=#{modifiedTime},modified_user=#{modifiedUser}
+        where aid=#{aid};
+    </update>
+    <delete id="deleteByAid">
+        delete
+        from store.t_address
+        where aid=#{aid};
+    </delete>
+    <select id="findLastModified" resultType="com.doromv.store.entity.Address">
+        select *
+        from store.t_address
+        where uid=#{uid}
+        order by modified_time desc limit 0,1;
+    </select>
+    <update id="updateByUid">
+        update store.t_address
+            set tag=#{tag},name=#{name},address=#{address},phone=#{phone},modified_user=#{modifiedUser},modified_time=#{modifiedTime}
+        where aid=#{aid};
+    </update>
+</mapper>
