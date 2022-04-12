@@ -6,6 +6,8 @@ import com.doromv.store.mapper.ProductMapper;
 import com.doromv.store.mapper.UserMapper;
 import com.doromv.store.service.ICartService;
 import com.doromv.store.mapper.CartMapper;
+import com.doromv.store.service.ex.AccessDeniedException;
+import com.doromv.store.service.ex.CartNotFoundException;
 import com.doromv.store.service.ex.InsertException;
 import com.doromv.store.service.ex.UpdateException;
 import com.doromv.store.vo.CartVO;
@@ -56,6 +58,24 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart>
     public List<CartVO> getVOByUid(Integer uid) {
         return cartMapper.findVOByUid(uid);
     }
+
+    @Override
+    public Integer addNum(Integer cid, Integer uid, String username) {
+         Cart result = cartMapper.findByCid(cid);
+         if(result==null){
+             throw new CartNotFoundException();
+         }
+         if(!result.getUid().equals(uid)){
+             throw new AccessDeniedException();
+         }
+        Integer num = result.getNum()+1;
+        int rows = cartMapper.updateNumByCid(cid, num, username, new Date());
+        if(rows!=1){
+            throw new UpdateException();
+        }
+        return num;
+    }
+
 }
 
 

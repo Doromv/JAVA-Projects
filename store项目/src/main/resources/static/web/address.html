@@ -342,7 +342,7 @@
 				}
 			});
 		}
-		function deleteByUid(tag,name,address,phone,aid){
+		function updateByUid(tag,name,address,phone,aid){
 			$.ajax({
 				url:"/addresses/update/"+tag+"/"+name+"/"+address+"/"+phone+"/"+aid,
 				type:"post",

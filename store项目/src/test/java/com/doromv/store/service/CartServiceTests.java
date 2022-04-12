@@ -16,4 +16,8 @@ public class CartServiceTests {
     public void addToCart(){
         cartService.addToCart(19,10000006,4,"Doromv");
     }
+    @Test
+    public void addNum(){
+        cartService.addNum(4,19,"Doromv");
+    }
 }

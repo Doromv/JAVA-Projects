@@ -48,6 +48,9 @@ public class BaseController  {
         }else if(e instanceof ProductNotFoundException){
             JsonResult.setState(4006);
             JsonResult.setMessage("商品数据不存在的异常");
+        }else if(e instanceof CartNotFoundException){
+            JsonResult.setState(4007);
+            JsonResult.setMessage("购物车数据不存在");
         }else if(e instanceof FileEmptyException){
             JsonResult.setState(6000);
         }else if(e instanceof FileSizeException){
