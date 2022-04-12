@@ -32,4 +32,8 @@ public class CarMapperTests {
     public void findByUidAndPid(){
         System.out.println(cartMapper.findByUidAndPid(19, 10000013));
     }
+    @Test
+    public void findVOByUid(){
+        System.out.println(cartMapper.findVOByUid(19));
+    }
 }

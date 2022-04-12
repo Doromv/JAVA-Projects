@@ -61,4 +61,22 @@
         uid = #{uid,jdbcType=NUMERIC}
         AND pid = #{pid,jdbcType=NUMERIC}
     </select>
+    <select id="findVOByUid" resultType="com.doromv.store.vo.CartVO">
+        select
+               cid,
+               uid,
+               pid,
+               t_product.price as realprice,
+               t_product.image,
+               t_product.title,
+               t_cart.num,
+               t_cart.price
+        from
+             t_cart
+                 left join t_product on t_cart.pid=t_product.id
+        where
+              uid=#{uid}
+        order by
+                 t_cart.created_time desc
+    </select>
 </mapper>

@@ -3,11 +3,13 @@ package com.doromv.store.controller;
 import com.doromv.store.service.ICartService;
 import com.doromv.store.service.impl.CartServiceImpl;
 import com.doromv.store.util.JsonResult;
+import com.doromv.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author Doromv
@@ -26,5 +28,10 @@ public class CartController extends BaseController {
                 amount,
                 getUsernameFromSession(session));
         return new JsonResult<>(OK);
+    }
+    @RequestMapping({"/",""})
+    public JsonResult<List<CartVO>> getVOByUid(HttpSession session){
+        List<CartVO> data = cartService.getVOByUid(getUidFromSession(session));
+        return new JsonResult<>(OK,data);
     }
 }

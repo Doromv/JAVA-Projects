@@ -2,6 +2,9 @@ package com.doromv.store.service;
 
 import com.doromv.store.entity.Cart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.doromv.store.vo.CartVO;
+
+import java.util.List;
 
 /**
 * @author DoromvQAQ
@@ -10,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ICartService extends IService<Cart> {
     void addToCart(Integer uid,Integer pid,Integer amount,String username);
+
+    List<CartVO> getVOByUid(Integer uid);
 }

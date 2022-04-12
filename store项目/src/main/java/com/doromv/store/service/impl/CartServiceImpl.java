@@ -3,14 +3,17 @@ package com.doromv.store.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.doromv.store.entity.Cart;
 import com.doromv.store.mapper.ProductMapper;
+import com.doromv.store.mapper.UserMapper;
 import com.doromv.store.service.ICartService;
 import com.doromv.store.mapper.CartMapper;
 import com.doromv.store.service.ex.InsertException;
 import com.doromv.store.service.ex.UpdateException;
+import com.doromv.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author DoromvQAQ
@@ -47,6 +50,11 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart>
                 throw new UpdateException();
             }
         }
+    }
+
+    @Override
+    public List<CartVO> getVOByUid(Integer uid) {
+        return cartMapper.findVOByUid(uid);
     }
 }
 
