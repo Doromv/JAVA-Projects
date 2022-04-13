@@ -40,4 +40,9 @@ public class CarMapperTests {
     public void findByCid(){
         System.out.println(cartMapper.findByCid(2));
     }
+    @Test
+    public void findVOByCid(){
+        Integer[] cids={1,2,3,4,5};
+        System.out.println(cartMapper.findVOByCid(cids));
+    }
 }

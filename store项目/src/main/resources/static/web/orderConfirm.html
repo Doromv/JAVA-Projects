@@ -21,7 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
 		<link rel="stylesheet" type="text/css" href="../css/orderConfirm.css" />
 		<link rel="stylesheet" type="text/css" href="../css/cart.css" />
-		<script src="../js/orderConfirm.js" type="text/javascript" charset="utf-8"></script>
+<!--		<script src="../js/orderConfirm.js" type="text/javascript" charset="utf-8"></script>-->
 	</head>
 
 	<body>
@@ -250,5 +250,76 @@
 		</footer>
 		<!--页脚结束-->
 	</body>
-
+<script type="text/javascript">
+	$(document).ready(function () {
+		showCartList();
+		showAddressList();
+	});
+	function showCartList(){
+		$("#cart-list").empty();
+		$.ajax({
+			url:"/carts/list",
+			type:"get",
+			data: location.search.substr(1),
+			dataType:"json",
+			success: function (json) {
+				if(json.state==200){
+					let list=json.data;
+					let allCount=0;
+					let allPrice=0;
+					for (let i = 0; i < list.length; i++) {
+				 let tr='<tr>\n' +
+						'<td><img src="..#{image}collect.png" class="img-responsive" /></td>\n' +
+						'<td>#{title}</td>\n' +
+						'<td>¥<span>#{price}</span></td>\n' +
+						'<td>#{num}</td>\n' +
+						'<td><span>#{totalPrice}</span></td>\n' +
+						'</tr>';
+				        tr=tr.replace("#{image}",list[i].image);
+						tr=tr.replace("#{title}",list[i].title);
+						tr=tr.replace("#{price}",list[i].price);
+						tr=tr.replace("#{num}",list[i].num);
+						tr=tr.replace("#{totalPrice}",list[i].price*list[i].num);
+						allCount+=list[i].num;
+						allPrice+=list[i].price*list[i].num;
+						$("#cart-list").append(tr);
+					}
+					$("#all-count").html(allCount);
+					$("#all-price").html(allPrice);
+				}
+			},
+			error: function (xhr) {
+				alert("购物车列表数据加载产生未知异常"+xhr.status);
+			}
+		})
+	}
+	function showAddressList(){
+		$("#address-list").empty();
+		$.ajax({
+			url:"/addresses",
+			type:"get",
+			dataType:"json",
+			success: function (json) {
+				if(json.state==200){
+					let list=json.data;
+					for (let i = 0; i < list.length; i++) {
+						let opt='<option value="#{aid}">#{name}&nbsp;&nbsp;&nbsp;#{tag}&nbsp;&nbsp;&nbsp;#{provinceName}#{cityName}#{areaName}#{address}&nbsp;&nbsp;&nbsp;#{phone}</option>';
+						opt=opt.replace("#{aid}",list[i].aid);
+						opt=opt.replace("#{name}",list[i].name);
+						opt=opt.replace("#{tag}",list[i].tag);
+						opt=opt.replace("#{provinceName}",list[i].provinceName);
+						opt=opt.replace("#{cityName}",list[i].cityName);
+						opt=opt.replace("#{areaName}",list[i].areaName);
+						opt=opt.replace("#{address}",list[i].address);
+						opt=opt.replace("#{phone}",list[i].phone);
+						$("#address-list").append(opt);
+					}
+				}
+			},
+			error: function (xhr) {
+				alert("购物车对应的收获地址列表数据加载产生未知异常"+xhr.status);
+			}
+		})
+	}
+</script>
 </html>

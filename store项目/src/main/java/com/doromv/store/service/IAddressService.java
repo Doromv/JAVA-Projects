@@ -15,5 +15,8 @@ public interface IAddressService {
     List<Address> getByUid(Integer uid);
     void setDefault(Integer aid,Integer uid,String username);
     void removeByAid(Integer aid,Integer uid, String username);
-    void updateByUid(String tag, String name, String address, String phone, Integer uid, Integer aid, String username, Date date);
+    void updateByUid(String tag, String name, String address,
+                     String phone, Integer uid, Integer aid,
+                     String username, Date date);
+    Address getByAid(Integer aid,Integer uid);
 }

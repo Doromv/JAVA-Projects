@@ -17,4 +17,8 @@ public interface ICartService extends IService<Cart> {
     List<CartVO> getVOByUid(Integer uid);
 
     Integer addNum(Integer cid,Integer uid,String username);
+
+    List<CartVO> getVOByCid(Integer[] cids,Integer uid);
+
+
 }

@@ -24,6 +24,10 @@ public interface CartMapper extends BaseMapper<Cart> {
     List<CartVO> findVOByUid(Integer uid);
 
     Cart findByCid(@Param("cid") Integer cid);
+
+    List<CartVO> findVOByCid(Integer[] cids);
+
+
 }
 
 

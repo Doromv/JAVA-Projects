@@ -58,7 +58,6 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart>
     public List<CartVO> getVOByUid(Integer uid) {
         return cartMapper.findVOByUid(uid);
     }
-
     @Override
     public Integer addNum(Integer cid, Integer uid, String username) {
          Cart result = cartMapper.findByCid(cid);
@@ -74,6 +73,17 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart>
             throw new UpdateException();
         }
         return num;
+    }
+
+    @Override
+    public List<CartVO> getVOByCid(Integer[] cids, Integer uid) {
+        List<CartVO> list = cartMapper.findVOByCid(cids);
+        for (CartVO cartVO : list) {
+            if(cartVO.getUid()!=uid){
+                list.remove(cartVO);
+            }
+        }
+        return list;
     }
 
 }

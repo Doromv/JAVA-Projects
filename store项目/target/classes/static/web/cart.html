@@ -174,7 +174,7 @@
 							</div>
 							<div>
 								<span class="pull-right">
-								<input type="button" value="  结  算  " class="btn btn-primary btn-lg link-account" />
+								<input type="submit" value="  结  算  " class="btn btn-primary btn-lg link-account" />
 							</span>
 							</div>
 						</form>
@@ -319,8 +319,10 @@
 					dataType:"json",
 					success: function (json) {
 						if(json.state==200){
-							$("#cart-list").empty();
-							showCartList();
+							$("#goodsCount"+cid).val(json.data);
+							let price=$("#goodsPrice"+cid).html();
+							let totalPrice=price*json.data;
+							$("#goodsCast"+cid).html(totalPrice);
 						}else{
 							alert("增加购物车数据失败",json.message);
 						}

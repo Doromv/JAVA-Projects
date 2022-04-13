@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doromv.store.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.doromv.store.entity.Order">
+            <id property="oid" column="oid" jdbcType="INTEGER"/>
+            <result property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="recvName" column="recv_name" jdbcType="VARCHAR"/>
+            <result property="recvPhone" column="recv_phone" jdbcType="VARCHAR"/>
+            <result property="recvProvince" column="recv_province" jdbcType="VARCHAR"/>
+            <result property="recvCity" column="recv_city" jdbcType="VARCHAR"/>
+            <result property="recvArea" column="recv_area" jdbcType="VARCHAR"/>
+            <result property="recvAddress" column="recv_address" jdbcType="VARCHAR"/>
+            <result property="totalPrice" column="total_price" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
+            <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+            <result property="createdUser" column="created_user" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="modifiedUser" column="modified_user" jdbcType="VARCHAR"/>
+            <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        oid,uid,recv_name,
+        recv_phone,recv_province,recv_city,
+        recv_area,recv_address,total_price,
+        status,order_time,pay_time,
+        created_user,created_time,modified_user,
+        modified_time
+    </sql>
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
+        insert into t_order
+        (oid, uid, recv_name,
+         recv_phone, recv_province, recv_city,
+         recv_area, recv_address, total_price,
+         status, order_time, pay_time,
+         created_user, created_time, modified_user,
+         modified_time)
+        values (#{oid,jdbcType=NUMERIC}, #{uid,jdbcType=NUMERIC}, #{recvName,jdbcType=VARCHAR},
+                #{recvPhone,jdbcType=VARCHAR}, #{recvProvince,jdbcType=VARCHAR}, #{recvCity,jdbcType=VARCHAR},
+                #{recvArea,jdbcType=VARCHAR}, #{recvAddress,jdbcType=VARCHAR}, #{totalPrice,jdbcType=NUMERIC},
+                #{status,jdbcType=NUMERIC}, #{orderTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP},
+                #{createdUser,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR},
+                #{modifiedTime,jdbcType=TIMESTAMP})
+
+    </insert>
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order_item (
+            oid, pid, title, image, price, num, created_user,
+            created_time, modified_user, modified_time
+        ) VALUES (
+                     #{oid}, #{pid}, #{title}, #{image}, #{price}, #{num}, #{createdUser},
+                     #{createdTime}, #{modifiedUser}, #{modifiedTime}
+                 )
+    </insert>
+</mapper>
