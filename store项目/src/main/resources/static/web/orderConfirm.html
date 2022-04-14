@@ -255,6 +255,11 @@
 		showCartList();
 		showAddressList();
 	});
+	$("#btn-create-order").click(function () {
+		let aid=$("#address-list").val();
+		let cids=location.search.substr(1);
+
+	})
 	function showCartList(){
 		$("#cart-list").empty();
 		$.ajax({

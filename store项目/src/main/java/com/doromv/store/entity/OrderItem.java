@@ -1,57 +1,21 @@
 package com.doromv.store.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 
- * @TableName t_order_item
- */
-@TableName(value ="t_order_item")
-@Data
-public class OrderItem extends BaseEntity implements Serializable {
-    /**
-     * 订单中的商品记录的id
-     */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+ * @author Doromv
+ * @create 2022-04-14-9:27
+ */@Data
+    public class OrderItem extends BaseEntity implements Serializable {
+        private Integer id;
+        private Integer oid;
+        private Integer pid;
+        private String title;
+        private String image;
+        private Long price;
+        private Integer num;
 
-    /**
-     * 所归属的订单的id
-     */
-    private Integer oid;
-
-    /**
-     * 商品的id
-     */
-    private Integer pid;
-
-    /**
-     * 商品标题
-     */
-    private String title;
-
-    /**
-     * 商品图片
-     */
-    private String image;
-
-    /**
-     * 商品价格
-     */
-    private Long price;
-
-    /**
-     * 购买数量
-     */
-    private Integer num;
-
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
-}
+        // Generate: Getter and Setter、Generate hashCode() and equals()、toString()
+    }
