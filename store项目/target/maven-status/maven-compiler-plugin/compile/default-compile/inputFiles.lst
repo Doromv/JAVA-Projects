@@ -5,6 +5,7 @@ E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\Ba
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\ex\FileEmptyException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\impl\UserServiceImpl.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\config\LoginInterceptorConfigurer.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\OrderItem.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\mapper\ProductMapper.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\User.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\impl\AddressServiceImpl.java
@@ -18,6 +19,7 @@ E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\ex
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\BaseEntity.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\DistrictController.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\UsernameDuplicatedException.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\IOrderService.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\UsernameNotFoundException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\District.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\mapper\UserMapper.java
@@ -25,6 +27,8 @@ E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\Pr
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\DeleteException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\UserController.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\impl\ProductServiceImpl.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\aop\TimerAspect.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\OrderController.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\Address.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\AddressNotFoundException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\CartNotFoundException.java
@@ -36,13 +40,16 @@ E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\mapper\Addres
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\AddressCountLimitException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\CartController.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\IDistrictService.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\entity\Order.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\AccessDeniedException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\IUserService.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\ProductController.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\UpdateException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\util\JsonResult.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\IProductService.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\mapper\OrderMapper.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\ex\FileStateException.java
+E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\impl\OrderServiceImpl.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\service\ex\ServiceException.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\vo\CartVO.java
 E:\GitHub\JAVA-Projects\store项目\src\main\java\com\doromv\store\controller\ex\FileTypeException.java
