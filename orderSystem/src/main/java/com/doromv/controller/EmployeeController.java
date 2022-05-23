@@ -1,22 +1,21 @@
 package com.doromv.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.doromv.pojo.Employee;
 import com.doromv.service.EmployeeService;
 import com.doromv.utils.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author Doromv
  * @create 2022-05-22-23:19
+ * Employee的Controller层
  */
 @Slf4j
 @RestController
@@ -26,29 +25,86 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    /**
+     * 登录
+     * @param request
+     * @param employee 前端传来的用户信息
+     * @return
+     */
     @PostMapping("/login")
     public ResponseResult<Employee> login
             (HttpServletRequest request, @RequestBody Employee employee){
-        //1.将页面提交的密码用MD5加密
-        String pwdMD5 = DigestUtils.md5DigestAsHex(employee.getPassword().getBytes());
-        //2.根据页面提交的用户名查询对应的用户
-        Employee emp = employeeService.query().eq("username", employee.getName()).one();
-        //2.1如果查询为空则返回error
-        if(ObjectUtils.isEmpty(emp)){
-            return ResponseResult.error("用户名错误！");
+       //将账户id写入session并且返回结果;
+        ResponseResult<Employee> result = employeeService.login(employee);
+        Employee emp = result.getData();
+        if(!ObjectUtils.isEmpty(emp)){
+            request.getSession().setAttribute("employee",emp.getId());
         }
-        //2.2如果查询成功则进行密码对比
-        //2.2.1密码错误返回error
-        if(!pwdMD5.equals(emp.getPassword())){
-            return ResponseResult.error("密码错误！");
-        }
-        //2.2.2密码正确则查询员工状态
-        //2.2.2.1员工状态为已禁用则返回error
-        if(emp.getStatus()==0){
-            return ResponseResult.error("账户已禁用！");
-        }
-        //2.2.2.2登录成功返回seccess,并且将账户id写入session
-        request.getSession().setAttribute("employee",emp.getId());
-        return ResponseResult.success(emp);
+        return result;
+    }
+
+
+    /**
+     * 登出
+     * @param request
+     * @return
+     */
+    @RequestMapping("/logout")
+    public ResponseResult<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("employee");
+        return ResponseResult.success("退出成功!");
+    }
+
+    /**
+     * 新增员工
+     * @param request
+     * @param employee 要添加的用户的信息
+     * @return
+     */
+    @PostMapping
+    public ResponseResult<String> addEmployee
+    (HttpServletRequest request,@RequestBody Employee employee){
+
+        //获取创建者id
+        Long createrId = (Long) request.getSession().getAttribute("employee");
+
+        return employeeService.addEmployee(createrId,employee);
+    }
+
+    /**
+     * 展示用户列表
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
+    @GetMapping("/page")
+    public ResponseResult<Page<Employee>> showEmployeeList
+            (Integer page,Integer pageSize,String name){
+        return employeeService.getEmployeeList(page, pageSize,name);
+    }
+
+    /**
+     * 修改员工信息
+     * @param request
+     * @param employee 前端传来的用户信息
+     * @return
+     */
+    @PutMapping
+    public ResponseResult<String> update(HttpServletRequest request,@RequestBody Employee employee){
+        Long modifyerId = (Long) request.getSession().getAttribute("employee");
+        employeeService.modifyEmployeeInfo(modifyerId, employee);
+        return ResponseResult.success("员工信息修改成功！");
+    }
+
+    /**
+     * 根据id查询用户
+     * @param employeeId
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseResult<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
+        Employee employee = employeeService.queryEmployeeById(employeeId);
+        return ResponseResult.success(employee);
     }
 }
