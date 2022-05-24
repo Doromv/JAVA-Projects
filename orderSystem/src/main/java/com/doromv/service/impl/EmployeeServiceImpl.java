@@ -82,15 +82,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
         }
         //5.设置初始密码,MD5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        //6.设置创建者id
-        employee.setCreateUser(createrId);
-        //7.设置更新者id
-        employee.setUpdateUser(createrId);
-        //8.设置创建时间
-        employee.setCreateTime(LocalDateTime.now());
-        //9.设置更新时间
-        employee.setUpdateTime(LocalDateTime.now());
-        //10.将用户保存到数据库
+        //6.将用户保存到数据库
         boolean row = save(employee);
         if(row==false){
             throw new RuntimeException("保存失败！");
@@ -123,17 +115,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 
     /**
      * 修改用户的状态
-     * @param modifyerId
-     * @param employee
+     * @param employee 员工信息
      * @return
      */
     @Override
-    public void modifyEmployeeInfo(Long modifyerId, Employee employee) {
-        //1.更新时间、更新者id
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(modifyerId);
+    public void modifyEmployeeInfo(Employee employee) {
         boolean row = updateById(employee);
-        //2.判断是否更新成功
+        //判断是否更新成功
         if(row==false){
             throw new EmployeeException("发生未知异常，更新状态失败！");
         }
@@ -142,12 +130,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee>
 
     /**
      * 根据id查询员工信息
-     * @param employeeId
+     * @param employeeId 员工id
      * @return
      */
     @Override
     public Employee queryEmployeeById(Long employeeId) {
         Employee emp = getById(employeeId);
+        //检验有无该用户信息
         if(ObjectUtils.isEmpty(emp)){
             throw new EmployeeException("无该用户信息！");
         }

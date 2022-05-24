@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
+ * Employee管理
  * @author Doromv
  * @create 2022-05-22-23:19
- * Employee的Controller层
  */
 @Slf4j
 @RestController
@@ -93,13 +93,13 @@ public class EmployeeController {
     @PutMapping
     public ResponseResult<String> update(HttpServletRequest request,@RequestBody Employee employee){
         Long modifyerId = (Long) request.getSession().getAttribute("employee");
-        employeeService.modifyEmployeeInfo(modifyerId, employee);
+        employeeService.modifyEmployeeInfo(employee);
         return ResponseResult.success("员工信息修改成功！");
     }
 
     /**
      * 根据id查询用户
-     * @param employeeId
+     * @param employeeId 用户id
      * @return
      */
     @GetMapping("/{id}")

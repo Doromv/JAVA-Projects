@@ -37,7 +37,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/backend/plugins/**",
                         "/backend/styles/**",
                         "/backend/favicon.ioc",
-                        "/front/**");
+                        "/front/**",
+                        "/backend/page/demo/upload.html",
+                        "common/**"
+                );
     }
 
     /**

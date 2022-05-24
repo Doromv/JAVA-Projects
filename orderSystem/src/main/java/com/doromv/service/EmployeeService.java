@@ -13,7 +13,7 @@ public interface EmployeeService extends IService<Employee> {
 
     ResponseResult<Page<Employee>> getEmployeeList(Integer page, Integer pageSize, String name);
 
-    void modifyEmployeeInfo(Long modifyerId, Employee employee);
+    void modifyEmployeeInfo(Employee employee);
 
     Employee queryEmployeeById(Long employeeId);
 }
