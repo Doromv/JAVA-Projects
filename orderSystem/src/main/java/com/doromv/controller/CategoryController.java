@@ -39,7 +39,7 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/page")
-    public ResponseResult<Page<Category>> showCategoryInfop(Integer page,Integer pageSize){
+    public ResponseResult<Page<Category>> showCategoryInfo(Integer page, Integer pageSize){
 
         return categoryService.getCategoryInfo(page,pageSize);
     }

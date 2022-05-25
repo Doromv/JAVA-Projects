@@ -6,6 +6,9 @@ import com.doromv.pojo.Dish;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.doromv.utils.ResponseResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * @author DoromvQAQ
 * @description 针对表【dish(菜品管理)】的数据库操作Service
@@ -21,4 +24,8 @@ public interface DishService extends IService<Dish> {
     ResponseResult<DishDto> queryDishById(Long id);
 
     ResponseResult<String> updateDishInfo(DishDto dishDto);
+
+    ResponseResult<String> updateDishStatus(Integer status, ArrayList<Long> ids);
+
+    ResponseResult<List<Dish>> queryDishListByCategoryId(Dish dish);
 }

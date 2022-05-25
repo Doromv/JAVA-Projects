@@ -9,6 +9,10 @@ import com.doromv.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 菜品管理
  * @author Doromv
@@ -68,5 +72,27 @@ public class DishController {
     public ResponseResult<String> updateDishInfo(@RequestBody DishDto dishDto){
 
         return dishService.updateDishInfo(dishDto);
+    }
+
+    /**
+     * 修改菜品状态
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public ResponseResult<String> updateDishStatus(@PathVariable Integer status,@RequestParam("ids") ArrayList<Long> ids){
+        return dishService.updateDishStatus(status,ids);
+    }
+
+    /**
+     * 根据分类查询菜品
+     * @param dish
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseResult<List<Dish>> getDishListByCategoryId(Dish dish){
+
+        return dishService.queryDishListByCategoryId(dish);
     }
 }

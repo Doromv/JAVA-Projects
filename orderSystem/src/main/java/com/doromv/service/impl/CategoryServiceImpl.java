@@ -95,11 +95,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
      */
     @Override
     public ResponseResult<String> updateCategory(Category category) {
-        //检查分类名是否已被使用
-        Integer count = query().eq("name", category.getName()).count();
-        if(count!=0){
-            throw new CategoryException("该分类名已被使用！");
-        }
+        query().eq("name", category.getName()).count();
+
         boolean row = updateById(category);
         //检查是否更新成功
         if(row==false){

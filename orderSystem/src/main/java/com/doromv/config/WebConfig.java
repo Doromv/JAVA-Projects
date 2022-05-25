@@ -1,11 +1,10 @@
 package com.doromv.config;
 
-import com.doromv.interceptor.LoginInterceptor;
+import com.doromv.interceptor.EmployeeLoginInterceptor;
+import com.doromv.interceptor.UserLoginInterceptor;
 import com.doromv.utils.JacksonObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.cbor.MappingJackson2CborHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,21 +24,27 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                //放行的路径
-                .excludePathPatterns(
-                        "/employee/login",
-                        "/employee/logout",
-                        "/backend/page/login/login.html",
-                        "/backend/js/**",
-                        "/backend/images/**",
-                        "/backend/api/**",
-                        "/backend/plugins/**",
-                        "/backend/styles/**",
-                        "/backend/favicon.ioc",
-                        "/front/**",
-                        "/backend/page/demo/upload.html",
-                        "common/**"
+        registry.addInterceptor(new UserLoginInterceptor())
+                //添加拦截的路径
+                .addPathPatterns(
+                        "/front/page/add-order.html",
+                        "/front/page/address.html",
+                        "/front/page/address-edit.html",
+                        "/front/page/no-wify.html",
+                        "/front/page/order.html",
+                        "/front/page/pay-success.html",
+                        "/front/page/user.html",
+                        "/front/index.html"
+                );
+        registry.addInterceptor(new EmployeeLoginInterceptor())
+                //添加拦截的路径
+                .addPathPatterns(
+                        "/backend/page/category/list.html",
+                        "/backend/page/combo/combo.html",
+                        "/backend/page/demo/demo.html",
+                        "/backend/page/food/food.html",
+                        "/backend/page/member/member.html",
+                        "/backend/page/order/order.html"
                 );
     }
 

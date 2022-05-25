@@ -9,12 +9,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 套餐
- * @TableName setmeal
+ * 套餐菜品关系
+ * @TableName setmeal_dish
  */
-@TableName(value ="setmeal")
+@TableName(value ="setmeal_dish")
 @Data
-public class Setmeal implements Serializable {
+public class SetmealDish implements Serializable {
     /**
      * 主键
      */
@@ -22,39 +22,34 @@ public class Setmeal implements Serializable {
     private Long id;
 
     /**
-     * 菜品分类id
+     * 套餐id 
      */
-    private Long categoryId;
+    private Long setmealId;
 
     /**
-     * 套餐名称
+     * 菜品id
+     */
+    private String dishId;
+
+    /**
+     * 菜品名称 （冗余字段）
      */
     private String name;
 
     /**
-     * 套餐价格
+     * 菜品原价（冗余字段）
      */
     private BigDecimal price;
 
     /**
-     * 状态 0:停用 1:启用
+     * 份数
      */
-    private Integer status;
+    private Integer copies;
 
     /**
-     * 编码
+     * 排序
      */
-    private String code;
-
-    /**
-     * 描述信息
-     */
-    private String description;
-
-    /**
-     * 图片
-     */
-    private String image;
+    private Integer sort;
 
     /**
      * 创建时间
@@ -99,15 +94,14 @@ public class Setmeal implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Setmeal other = (Setmeal) that;
+        SetmealDish other = (SetmealDish) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
+            && (this.getSetmealId() == null ? other.getSetmealId() == null : this.getSetmealId().equals(other.getSetmealId()))
+            && (this.getDishId() == null ? other.getDishId() == null : this.getDishId().equals(other.getDishId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getImage() == null ? other.getImage() == null : this.getImage().equals(other.getImage()))
+            && (this.getCopies() == null ? other.getCopies() == null : this.getCopies().equals(other.getCopies()))
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -120,13 +114,12 @@ public class Setmeal implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
+        result = prime * result + ((getSetmealId() == null) ? 0 : getSetmealId().hashCode());
+        result = prime * result + ((getDishId() == null) ? 0 : getDishId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
-        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
-        result = prime * result + ((getImage() == null) ? 0 : getImage().hashCode());
+        result = prime * result + ((getCopies() == null) ? 0 : getCopies().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -142,13 +135,12 @@ public class Setmeal implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", categoryId=").append(categoryId);
+        sb.append(", setmealId=").append(setmealId);
+        sb.append(", dishId=").append(dishId);
         sb.append(", name=").append(name);
         sb.append(", price=").append(price);
-        sb.append(", status=").append(status);
-        sb.append(", code=").append(code);
-        sb.append(", description=").append(description);
-        sb.append(", image=").append(image);
+        sb.append(", copies=").append(copies);
+        sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", createUser=").append(createUser);

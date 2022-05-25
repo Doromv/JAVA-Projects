@@ -1,7 +1,12 @@
 package com.doromv.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.doromv.dto.SetmealDto;
 import com.doromv.pojo.Setmeal;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.doromv.utils.ResponseResult;
+
+import java.util.List;
 
 /**
 * @author DoromvQAQ
@@ -10,4 +15,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SetmealService extends IService<Setmeal> {
 
+     ResponseResult<String> saveSetmeal(SetmealDto setmealDto);
+
+    ResponseResult<Page> querySetmealList(Integer page, Integer pageSize, String name);
+
+    ResponseResult<String> removeSetmeals(List<Long> ids);
+
+    ResponseResult<String> updateStatus(Integer status,List<Long> ids);
 }

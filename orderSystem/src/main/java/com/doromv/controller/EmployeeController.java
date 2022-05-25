@@ -10,7 +10,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Employee管理
@@ -38,7 +37,7 @@ public class EmployeeController {
         ResponseResult<Employee> result = employeeService.login(employee);
         Employee emp = result.getData();
         if(!ObjectUtils.isEmpty(emp)){
-            request.getSession().setAttribute("employee",emp.getId());
+            request.getSession().setAttribute("id",emp.getId());
         }
         return result;
     }
@@ -51,7 +50,7 @@ public class EmployeeController {
      */
     @RequestMapping("/logout")
     public ResponseResult<String> logout(HttpServletRequest request){
-        request.getSession().removeAttribute("employee");
+        request.getSession().removeAttribute("id");
         return ResponseResult.success("退出成功!");
     }
 
@@ -66,7 +65,7 @@ public class EmployeeController {
     (HttpServletRequest request,@RequestBody Employee employee){
 
         //获取创建者id
-        Long createrId = (Long) request.getSession().getAttribute("employee");
+        Long createrId = (Long) request.getSession().getAttribute("id");
 
         return employeeService.addEmployee(createrId,employee);
     }
@@ -92,7 +91,7 @@ public class EmployeeController {
      */
     @PutMapping
     public ResponseResult<String> update(HttpServletRequest request,@RequestBody Employee employee){
-        Long modifyerId = (Long) request.getSession().getAttribute("employee");
+        Long modifyerId = (Long) request.getSession().getAttribute("id");
         employeeService.modifyEmployeeInfo(employee);
         return ResponseResult.success("员工信息修改成功！");
     }

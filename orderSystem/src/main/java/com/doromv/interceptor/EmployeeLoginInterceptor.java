@@ -12,15 +12,16 @@ import javax.servlet.http.HttpServletResponse;
  * @author Doromv
  * @create 2022-05-23-9:28
  */
-public class LoginInterceptor implements HandlerInterceptor {
+public class EmployeeLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Long employeeId = (Long)request.getSession().getAttribute("employee");
+        Long employeeId = (Long)request.getSession().getAttribute("id");
         //id为空则进行拦截
         if(ObjectUtils.isEmpty(employeeId)){
             response.sendRedirect("/backend/page/login/login.html");
             return false;
         }
+
         //放行
         return true;
     }

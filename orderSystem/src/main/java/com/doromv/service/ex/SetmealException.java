@@ -4,12 +4,12 @@ package com.doromv.service.ex;
  * @author Doromv
  * @create 2022-05-25-8:10
  */
-public class ServiceException extends RuntimeException{
-    public ServiceException() {
+public class SetmealException extends RuntimeException{
+    public SetmealException() {
         super();
     }
 
-    public ServiceException(String s) {
+    public SetmealException(String s) {
         super(s);
     }
 

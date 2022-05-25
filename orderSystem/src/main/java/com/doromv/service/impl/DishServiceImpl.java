@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -162,6 +163,47 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
             throw new DishException("菜品更新发生位置的异常，请重试！");
         }
         return ResponseResult.success("修改菜品信息成功");
+    }
+
+    /**
+     * 修改菜品状态
+     * @param status
+     * @param ids
+     * @return
+     */
+    @Override
+    public ResponseResult<String> updateDishStatus(Integer status, ArrayList<Long> ids) {
+        //根据id更改菜品状态
+        List<Dish> dishList = ids.stream()
+                .map(i -> {
+                    Dish dish = new Dish();
+                    dish.setId(i);
+                    dish.setStatus(status);
+                    return dish;
+                })
+                .collect(Collectors.toList());
+        boolean row = updateBatchById(dishList);
+        if(row==false){
+            throw new DishException("更新状态时发生位置异常，请重试！");
+        }
+        return ResponseResult.success("状态修改成功");
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param dish
+     * @return
+     */
+    @Override
+    public ResponseResult<List<Dish>> queryDishListByCategoryId(Dish dish) {
+        //根据分类id查询对应的菜品
+        List<Dish> dishList = query()
+                .eq("status",1)
+                .eq(!ObjectUtils.isEmpty(dish.getCategoryId()),"category_id", dish.getCategoryId())
+                .orderByAsc(String.valueOf(dish.getSort()))
+                .orderByAsc(String.valueOf(dish.getUpdateTime()))
+                .like(!ObjectUtils.isEmpty(dish.getName()),"name",dish.getName()).list();
+        return ResponseResult.success(dishList);
     }
 
 }
