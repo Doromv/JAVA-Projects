@@ -12,6 +12,7 @@ import com.doromv.service.SetmealDishService;
 import com.doromv.service.SetmealService;
 import com.doromv.mapper.SetmealMapper;
 import com.doromv.service.ex.CategoryException;
+import com.doromv.service.ex.DishException;
 import com.doromv.service.ex.SetmealException;
 import com.doromv.utils.ResponseResult;
 import org.springframework.beans.BeanUtils;
@@ -147,6 +148,77 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
             throw new SetmealException("更改状态时发生未知异常，请重试！");
         }
         return ResponseResult.success("更新状态成功");
+    }
+
+    /**
+     * 根据id查询套餐信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ResponseResult<SetmealDto> getSetmealById(Long id) {
+        if(ObjectUtils.isEmpty(id)){
+            throw new DishException("套餐id不能为空!");
+        }
+        SetmealDto setmealDto = new SetmealDto();
+        //查询套餐基本信息
+        Setmeal setmealInfo = getById(id);
+        //查询菜品信息
+        List<SetmealDish> setmealDishesInfo =
+                setmealDishService.query().eq("setmeal_id", id).list();
+        //查询分类名称
+        Long categoryId = setmealInfo.getCategoryId();
+        String categoryName = categoryService.getById(categoryId).getName();
+        //将数据存入stemalDto中
+        BeanUtils.copyProperties(setmealInfo,setmealDto);
+        setmealDto.setSetmealDishes(setmealDishesInfo);
+        setmealDto.setCategoryName(categoryName);
+        return ResponseResult.success(setmealDto);
+    }
+
+    /**
+     * 更新套餐信息
+     * @param setmealDto
+     * @return
+     */
+    @Override
+    public ResponseResult<String> updateSetmeal(SetmealDto setmealDto) {
+        //更新套餐基本信息
+        Setmeal setmealInfo = new Setmeal();
+        BeanUtils.copyProperties(setmealDto,setmealInfo);
+        boolean row = updateById(setmealInfo);
+        if(row==false){
+            throw new SetmealException("更新套餐时发生未知异常，请重试！");
+        }
+        //更新菜品信息
+        LambdaQueryWrapper<SetmealDish> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SetmealDish::getSetmealId,setmealDto.getId());
+        setmealDishService.remove(wrapper);
+        List<SetmealDish> setmealDishesInfo = setmealDto.getSetmealDishes();
+        List<SetmealDish> setmealDishList = setmealDishesInfo.stream()
+                .map(i -> {
+                    i.setSetmealId(setmealDto.getId());
+                    return i;
+                })
+                .collect(Collectors.toList());
+        row = setmealDishService.saveBatch(setmealDishList);
+        if(row==false){
+            throw new SetmealException("更新套餐时发生未知异常，请重试！");
+        }
+        return ResponseResult.success("更新套餐信息成功");
+    }
+
+    /**
+     * 根据分类id查询套餐
+     * @param setmeal
+     * @return
+     */
+    @Override
+    public ResponseResult<List<Setmeal>> querySetmealListByCategoryId(Setmeal setmeal) {
+        List<Setmeal> setmealList = query().eq("category_id", setmeal.getCategoryId())
+                .eq("status", 1)
+                .orderByAsc("update_time").list();
+        return ResponseResult.success(setmealList);
     }
 
 }

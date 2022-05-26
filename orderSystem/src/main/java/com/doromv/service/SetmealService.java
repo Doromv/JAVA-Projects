@@ -22,4 +22,10 @@ public interface SetmealService extends IService<Setmeal> {
     ResponseResult<String> removeSetmeals(List<Long> ids);
 
     ResponseResult<String> updateStatus(Integer status,List<Long> ids);
+
+    ResponseResult<SetmealDto> getSetmealById(Long id);
+
+    ResponseResult<String> updateSetmeal(SetmealDto setmealDto);
+
+    ResponseResult<List<Setmeal>> querySetmealListByCategoryId(Setmeal setmeal);
 }

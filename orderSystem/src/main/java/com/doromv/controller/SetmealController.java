@@ -2,6 +2,9 @@ package com.doromv.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.doromv.dto.SetmealDto;
+import com.doromv.pojo.Dish;
+import com.doromv.pojo.Setmeal;
+import com.doromv.pojo.SetmealDish;
 import com.doromv.service.SetmealDishService;
 import com.doromv.service.SetmealService;
 import com.doromv.utils.ResponseResult;
@@ -19,9 +22,6 @@ public class SetmealController {
 
     @Autowired
     private SetmealService setmealService;
-
-    @Autowired
-    private SetmealDishService setmealDishService;
 
     /**
      * 保存套餐信息
@@ -69,5 +69,38 @@ public class SetmealController {
             (@PathVariable Integer status,@RequestParam List<Long> ids){
 
         return setmealService.updateStatus(status,ids);
+    }
+
+    /**
+     * 根据id查询套餐信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseResult<SetmealDto> getSetmealById(@PathVariable Long id){
+
+        return setmealService.getSetmealById(id);
+    }
+
+    /**
+     * 更新套餐信息
+     * @param setmealDto
+     * @return
+     */
+    @PutMapping
+    public ResponseResult<String> updateSetmeal(@RequestBody SetmealDto setmealDto){
+
+        return setmealService.updateSetmeal(setmealDto);
+    }
+
+    /**
+     * 根据分类id查询套餐
+     * @param setmeal
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseResult<List<Setmeal>> getSetmealListByCategoryId(Setmeal setmeal){
+
+        return setmealService.querySetmealListByCategoryId(setmeal);
     }
 }

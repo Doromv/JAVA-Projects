@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -51,5 +53,16 @@ public class UserController {
         //将用户id保存到session和线程中
         session.setAttribute("id",userId);
         return ResponseResult.success("登录成功");
+    }
+
+    /**
+     * 登出
+     * @param request
+     * @return
+     */
+    @PostMapping("/loginout")
+    public ResponseResult<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("id");
+        return ResponseResult.success("退出成功!");
     }
 }

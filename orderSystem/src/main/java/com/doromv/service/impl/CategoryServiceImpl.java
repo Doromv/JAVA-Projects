@@ -109,12 +109,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     @Override
     public ResponseResult<List<Category>> queryCategoryList
             (Integer type, Integer sort, LocalDateTime updateTime) {
-        //1.检查type是否为空
-        if(ObjectUtils.isEmpty(type)){
-            throw new CategoryException("type不能为空！");
-        }
-        //2.查询分类信息
-        List<Category> categoryList = query().eq("type", type)
+
+        //查询分类信息
+        List<Category> categoryList = query().eq(!ObjectUtils.isEmpty(type),"type", type)
                 .orderByAsc(!ObjectUtils.isEmpty(sort),String.valueOf(sort))
                 .orderByAsc(!ObjectUtils.isEmpty(updateTime),String.valueOf(updateTime)).list();
         return ResponseResult.success(categoryList);

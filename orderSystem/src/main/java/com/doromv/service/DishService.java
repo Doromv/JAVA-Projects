@@ -27,5 +27,5 @@ public interface DishService extends IService<Dish> {
 
     ResponseResult<String> updateDishStatus(Integer status, ArrayList<Long> ids);
 
-    ResponseResult<List<Dish>> queryDishListByCategoryId(Dish dish);
+    ResponseResult<List<DishDto>> queryDishListByCategoryId(Dish dish);
 }

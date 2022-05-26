@@ -102,6 +102,35 @@ public class AddressBookServiceImpl extends ServiceImpl<AddressBookMapper, Addre
                 .orderByDesc("update_time").list();
         return ResponseResult.success(addressBookList);
     }
+
+    /**
+     * 根据id删除地址
+     * @param id
+     * @return
+     */
+    @Override
+    public ResponseResult<String> removeAddressBookById(Long id) {
+        boolean row = removeById(id);
+        if(row==false){
+            throw new AddressBookException("删除失败！");
+        }
+        return ResponseResult.success("删除成功");
+    }
+
+    /**
+     * 修改地址信息
+     * @param addressBook
+     * @return
+     */
+    @Override
+    public ResponseResult<String> updateAddressBook(AddressBook addressBook) {
+
+        boolean row = updateById(addressBook);
+        if(row==false){
+            throw new AddressBookException("更新时发生位置异常，请重试！");
+        }
+        return ResponseResult.success("更新成功");
+    }
 }
 
 

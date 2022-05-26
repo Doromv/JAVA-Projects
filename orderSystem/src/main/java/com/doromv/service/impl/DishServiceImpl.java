@@ -195,7 +195,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
      * @return
      */
     @Override
-    public ResponseResult<List<Dish>> queryDishListByCategoryId(Dish dish) {
+    public ResponseResult<List<DishDto>> queryDishListByCategoryId(Dish dish) {
         //根据分类id查询对应的菜品
         List<Dish> dishList = query()
                 .eq("status",1)
@@ -203,7 +203,17 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
                 .orderByAsc(String.valueOf(dish.getSort()))
                 .orderByAsc(String.valueOf(dish.getUpdateTime()))
                 .like(!ObjectUtils.isEmpty(dish.getName()),"name",dish.getName()).list();
-        return ResponseResult.success(dishList);
+        List<DishDto> dishDtoList = dishList.stream()
+                .map(i -> {
+                    DishDto dishDto = new DishDto();
+                    BeanUtils.copyProperties(i, dishDto);
+                    List<DishFlavor> dishFlavorList = dishFlavorService
+                            .query().eq("dish_id", i.getId()).list();
+                    dishDto.setFlavors(dishFlavorList);
+                    return dishDto;
+                })
+                .collect(Collectors.toList());
+        return ResponseResult.success(dishDtoList);
     }
 
 }

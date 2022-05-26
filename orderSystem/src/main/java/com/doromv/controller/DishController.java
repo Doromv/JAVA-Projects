@@ -91,7 +91,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/list")
-    public ResponseResult<List<Dish>> getDishListByCategoryId(Dish dish){
+    public ResponseResult<List<DishDto>> getDishListByCategoryId(Dish dish){
 
         return dishService.queryDishListByCategoryId(dish);
     }

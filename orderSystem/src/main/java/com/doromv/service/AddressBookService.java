@@ -22,4 +22,8 @@ public interface AddressBookService extends IService<AddressBook> {
      ResponseResult<AddressBook> queryDefault(Long userId);
 
      ResponseResult<List<AddressBook>> queryAddressBookList(Long userId,AddressBook addressBook);
+
+    ResponseResult<String> removeAddressBookById(Long id);
+
+    ResponseResult<String> updateAddressBook(AddressBook addressBook);
 }

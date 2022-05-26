@@ -77,4 +77,26 @@ public class AddressBookController {
         Long userId = (Long) session.getAttribute("id");
         return addressBookService.queryAddressBookList(userId,addressBook);
     }
+
+    /**
+     * 根据id删除地址
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    public ResponseResult<String> deleteAddressBookById(@RequestParam("ids") Long id){
+
+        return addressBookService.removeAddressBookById(id);
+    }
+
+    /**
+     * 更新地址信息
+     * @param addressBook
+     * @return
+     */
+    @PutMapping
+    public ResponseResult<String> updateAddressBook(@RequestBody AddressBook addressBook){
+
+        return addressBookService.updateAddressBook(addressBook);
+    }
 }
