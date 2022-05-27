@@ -1,8 +1,12 @@
 package com.doromv.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.doromv.dto.OrdersDto;
 import com.doromv.pojo.Orders;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.doromv.utils.ResponseResult;
+
+import java.time.LocalDateTime;
 
 /**
 * @author DoromvQAQ
@@ -12,4 +16,10 @@ import com.doromv.utils.ResponseResult;
 public interface OrdersService extends IService<Orders> {
 
     ResponseResult<String> saveOrder(Long userId, Orders orders);
+
+    Page<Orders> queryOrdersPage(Integer page, Integer pageSize, Long userId);
+
+    Page<OrdersDto> queryOrdersDtoPage(Integer page, Integer pageSize, Long number, LocalDateTime beginTime, LocalDateTime endTime);
+
+    ResponseResult<String> updateStatus(Integer status, Long id);
 }
