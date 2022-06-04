@@ -19,7 +19,7 @@ public interface OrdersService extends IService<Orders> {
 
     Page<Orders> queryOrdersPage(Integer page, Integer pageSize, Long userId);
 
-    Page<OrdersDto> queryOrdersDtoPage(Integer page, Integer pageSize, Long number, LocalDateTime beginTime, LocalDateTime endTime);
+    Page<OrdersDto> queryOrdersDtoPage(Integer page, Integer pageSize, Long number, String beginTime, String endTime);
 
     ResponseResult<String> updateStatus(Integer status, Long id);
 }

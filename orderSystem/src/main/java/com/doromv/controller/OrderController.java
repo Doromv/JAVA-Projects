@@ -58,7 +58,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/page")
-    public ResponseResult<Page<OrdersDto>> getOrdersDtoPage(Integer page, Integer pageSize, Long number, LocalDateTime beginTime, LocalDateTime endTime){
+    public ResponseResult<Page<OrdersDto>> getOrdersDtoPage(Integer page, Integer pageSize, Long number, String beginTime, String endTime){
 
         Page<OrdersDto> ordersDtoPage = ordersService.queryOrdersDtoPage(page, pageSize, number,beginTime,endTime);
         return ResponseResult.success(ordersDtoPage);

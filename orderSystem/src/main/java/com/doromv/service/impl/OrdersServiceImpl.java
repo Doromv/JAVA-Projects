@@ -13,6 +13,7 @@ import com.doromv.service.ex.ShoppingCartException;
 import com.doromv.utils.ResponseResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -139,14 +140,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders>
      * @return
      */
     @Override
-    public Page<OrdersDto> queryOrdersDtoPage(Integer page, Integer pageSize,Long number,LocalDateTime beginTime,LocalDateTime endTime) {
+    public Page<OrdersDto> queryOrdersDtoPage(Integer page, Integer pageSize,Long number,String beginTime,String endTime) {
         //创建分页构造器
         Page<Orders> pageInfo = new Page<>(page,pageSize);
         //创建条件构造器
         LambdaQueryWrapper<Orders> wrapper = new LambdaQueryWrapper<>();
         //添加条件
         wrapper.like(!ObjectUtils.isEmpty(number),Orders::getNumber,number)
-                .ge(!ObjectUtils.isEmpty(beginTime), Orders::getOrderTime, beginTime)
+                .ge(!ObjectUtils.isEmpty(beginTime), Orders::getOrderTime,beginTime)
                 .le(!ObjectUtils.isEmpty(endTime),Orders::getOrderTime,endTime)
                 .orderByAsc(Orders::getOrderTime);
         //进行分页查询

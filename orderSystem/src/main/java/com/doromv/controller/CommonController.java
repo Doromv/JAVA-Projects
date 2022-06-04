@@ -53,7 +53,8 @@ public class CommonController {
     }
 
     @GetMapping("/download")
-    public void downloadImage(@RequestParam("name") String fileName, HttpServletResponse response){
+    public void downloadImage(@RequestParam("name") String fileName,
+                              HttpServletResponse response){
 
         //利用common-io进行文件传输
         response.setContentType("image/jpeg");
