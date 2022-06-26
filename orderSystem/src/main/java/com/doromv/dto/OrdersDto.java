@@ -17,6 +17,7 @@ public class OrdersDto extends Orders {
 
     private String address;
 
+    //收餐人
     private String consignee;
 
     private List<OrderDetail> orderDetails;

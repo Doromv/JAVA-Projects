@@ -33,18 +33,17 @@ public class WebConfig implements WebMvcConfigurer {
                         "/front/page/no-wify.html",
                         "/front/page/order.html",
                         "/front/page/pay-success.html",
-                        "/front/page/user.html",
-                        "/front/index.html"
+                        "/front/page/user.html"
                 );
         registry.addInterceptor(new EmployeeLoginInterceptor())
                 //添加拦截的路径
                 .addPathPatterns(
                         "/backend/page/category/list.html",
-                        "/backend/page/combo/combo.html",
+                        "/backend/page/combo/*",
                         "/backend/page/demo/demo.html",
-                        "/backend/page/food/food.html",
-                        "/backend/page/member/member.html",
-                        "/backend/page/order/order.html"
+                        "/backend/page/food/*",
+                        "/backend/page/member/*",
+                        "/backend/page/order/list.html"
                 );
     }
 

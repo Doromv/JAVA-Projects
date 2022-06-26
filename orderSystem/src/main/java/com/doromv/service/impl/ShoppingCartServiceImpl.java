@@ -6,6 +6,7 @@ import com.doromv.pojo.ShoppingCart;
 import com.doromv.service.ShoppingCartService;
 import com.doromv.mapper.ShoppingCartMapper;
 import com.doromv.service.ex.ShoppingCartException;
+import com.doromv.service.ex.UserException;
 import com.doromv.utils.ResponseResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -28,6 +29,10 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
      */
     @Override
     public ResponseResult<ShoppingCart> saveShop(Long userId,ShoppingCart shoppingCart) {
+        if(ObjectUtils.isEmpty(userId)){
+
+            throw new UserException("请登录！");
+        }
         //将用户id保存到shoppingCart中
         shoppingCart.setUserId(userId);
         //查询购物车中是否已添加该菜品
